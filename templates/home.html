@@ -17,7 +17,7 @@
   <body>
       {% include 'navbar.html' %}
 
-      {% if user.is_authenticated %}
+      {% comment %} {% if user.is_authenticated %} {% endcomment %}
       <div class='pannel'>
 
         <div class="user-profile">
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      {% endif %}
+      {% comment %} {% endif %} {% endcomment %}
 <br>
       <br>
       <div class="posts container my-5">
