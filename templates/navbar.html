@@ -1,0 +1,76 @@
+{% comment %} <h1> Navbar </h1> {% endcomment %}
+
+<header>
+
+<div class='nav-container'>
+
+  <div class='icon-search'>
+    <a href='/' class="reddit-icon"> <i class="fa fa-reddit" style="font-size:48px;color:red"></i>
+    </a>
+
+    <div class='search-box'>
+      <form action="">
+      <label for="" class="search-label">
+        <div class="search-icon">
+          <i class="fa fa-search"></i>
+
+        </div>
+      </label>
+      <input type="text" class='search' placeholder='Search Reddit'>
+    </form>
+    </div>
+
+  </div>
+
+  <div class='header-buttons'>
+
+    <div class='nav-btn'>
+      {% if user.is_authenticated %}
+      <button class='createpost-btn'><a class='create-btn' href="/create">+</a></button>
+      <a href="/logout" class='logout'> Logout </a>
+      {% else %}
+      <a href='/signin' class='login'> Log In </a>
+      <a href='/signup' class='signup'> Sign Up </a>
+      {% endif %}
+    </div>
+
+    <div class='user-dropdown'>
+        <button class="dropbtn">
+          <span class='user'>
+            <i class='fa fa-user'></i>
+          </span>
+
+          {% if user.is_authenticated %}
+            <li class='user-name'> {{user.username}} </li>
+          {% endif %}
+
+          <span class='dropdown-icon'>
+            <i class="fa fa-angle-down"></i>
+          </span>
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+          {% comment %} <a href="">Coins</a> {% endcomment %}
+          {% comment %} <a href="#">Premium</a> {% endcomment %}
+          {% comment %} <a href="#">Powerups</a> {% endcomment %}
+          {% comment %} <a href="#">Talk</a> {% endcomment %}
+          <a href="/myprofile">Profile</a>
+          <a href="setting">Settings</a>
+          {% comment %} <a href="help">Help Center</a> {% endcomment %}
+          {% comment %} <a href="#">More</a> {% endcomment %}
+          {% comment %} <a href="terms">Terms & Policies</a> {% endcomment %}
+          {% comment %} <a href="#">User agreemement</a> {% endcomment %}
+          <a href="privacy">Privacy Policy</a>
+          {% comment %} <a href="#">Contect Policy</a> {% endcomment %}
+          {% comment %} <a href="#">Moderator Guidelines</a> {% endcomment %}
+          {% comment %} <a href="#">Sign Up or Log In</a> {% endcomment %}
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+</header>
+
+{% block content%}
+{% endblock %}

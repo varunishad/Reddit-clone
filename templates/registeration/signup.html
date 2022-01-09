@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href='{% static 'signup.css' %}'>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class='image'>
+      <img src='{% static "signupbg.png" %}' alt="">
+    </div>
+
+    <div class='details'>
+
+      <div class='head'>
+        <h3>Sign Up</h3>
+        <p>By continuing, you are setting up a Reddit account and agree to our User Agreement and Privacy Policy.</p>
+      </div>
+
+      <div class='social-media-btn'>
+        <div>
+          <button>
+            <a href=""> Continue with Google</a>
+          </button>
+        </div>
+
+        <div>
+          <button>
+            <a href=""> Continue with Apple</a>
+          </button>
+        </div>
+      </div>
+
+      <div class='or'></div>
+
+      <form action="signup" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="text" name='username' placeholder='Username'>
+        </div>
+        <div>
+          <input type="email" name='email' placeholder='Email'>
+        </div>
+        <div>
+          <input type="password" name='password' placeholder='Password'>
+        </div>
+        <input type="submit">
+        {% comment %} <button>
+         Sign Up
+        </button> {% endcomment %}
+        {% comment %} <button>
+         continue
+        </button> {% endcomment %}
+      </form>
+      <div>
+        {% for message in messages %}
+        <h5 style='color:red'> {{ message }} </h5>
+        {% endfor %}
+      </div>
+      <div> Already a redditor?
+        <a href="/signin">LOG IN</a>
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+</html>

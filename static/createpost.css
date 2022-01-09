@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+body{
+  background-color: #dae0e6 !important;
+}
+.hr{
+  border-bottom: 1px solid #fff;
+  width: 100%;
+}
+
+.box{
+  background-color: #fff;
+}
+.swappers{
+  /* width: 100%; */
+  /* background-color: rgb(176, 176, 207); */
+}
+
+.head-btn{
+  border: 1px solid #dae0e6;
+  width: 33.34%;
+  cursor: pointer;
+  padding: 20px 0;
+  color: rgb(139, 139, 139);
+}
+.head-btn:hover{
+  background-color: rgb(241, 248, 255);
+}
+.head-btn.active{
+  color: #0179d2;
+  border-bottom: 3px solid #0179d2;
+}
+
+input.title{
+  font-size: 20px;
+  border: 1px solid #dae0e6;
+
+}
+
+.post-field textarea{
+  /* width: 100%; */
+  height: 200px;
+  border: 1px solid #dae0e6;
+  font-size: 20px;
+  color: rgb(139, 139, 139);
+  padding: 0;
+
+}
+.link-area {
+  height: 100px;
+  border: 1px solid #dae0e6;
+  font-size: 20px;
+  color: rgb(139, 139, 139);
+  padding: 0;
+}
+
+.image-video-field{
+  border: 1px solid #dae0e6;
+  font-size: 20px;
+}
+
+.drag-area{
+  border: 2px dashed #fff;
+  height: 400px;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.drag-area.active{
+  border: 2px solid #fff;
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: #0179d2;
+}
+.drag-area .headr{
+  /* font-size: 30px; */
+  font-weight: 500;
+  color: #0179d2;
+  width: fit-content;
+}
+.drag-area span{
+  font-weight: 500;
+  color: #0179d2;
+  margin: 10px 0 15px 0;
+}
+#fileupload{
+  width: 260px;
+}
+/* .drag-area .upload-btn{
+  position: relative;
+  border: 1px solid #0079d3;
+  color: #0079d3;
+  fill: #0079d3;
+  font-family: Noto Sans,Arial,sans-serif;
+  font-weight: 700;
+  background-color: #fff;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 13px 25px;
+  text-decoration: none;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+} */
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.todisplay{
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
+.submit-btn-div{
+  text-align: end;
+}
+.submit-btn{
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #0079d3;
+  color: #0079d3;
+  font-family: Noto Sans,Arial,sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 17px;
+  padding: 13px 25px;
+  border-radius: 9999px;
+}
+
+
