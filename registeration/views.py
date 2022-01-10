@@ -21,6 +21,7 @@ def signup(request):
       else:
         user = User.objects.create_user(username=username, password = password, email=email)
         user.save();
+        request.session["user"]=username
         auth.login(request, user)
         return redirect('/')
 

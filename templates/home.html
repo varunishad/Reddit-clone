@@ -47,7 +47,6 @@
 <br>
       <br>
       <div class="posts container my-5">
-        {% comment %} {{posts}} {% endcomment %}
 
         {% comment %} {% for index, post in enumerate{posts %} {% endcomment %}
         {% if posts.count > 0 %}
@@ -61,8 +60,9 @@
             </button>
           </div>
 
+
           <div class='info-div'>
-            <p class='user-detail'>posted by {{ post.uploader.username }} on {{ post.date_created }}</p>
+            <p class='user-detail'>posted by <b> {{ post.uploader.username }} </b> on {{ post.date_created }}</p>
             <h3 class='my-2'> {{ post.title }} </h3>
             <p class='my-2'> {{ post.description }}</p>
             {% if post.url %}

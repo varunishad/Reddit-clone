@@ -6,11 +6,14 @@ from django.contrib.auth.models import User
 
 def create(request):
     form = forms.PostForm()
+    # print('user:-------',request.session['user'])
     if request.method == 'POST':
         form = forms.PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             curr_user = User.objects.get(username=request.session["user"])
+            print(curr_user)
+
             post.uploader = curr_user
             post.save()
             return redirect('/myprofile')
@@ -19,7 +22,7 @@ def create(request):
 
 # @login_required
 def myprofile(request):
-    username = request.session['user']
+    username = request.session["user"]
     curr_user_id = User.objects.filter(username = username).values_list('id')
     posts = Post.objects.filter(uploader=curr_user_id[0]).order_by('-date_created')
     context = {
