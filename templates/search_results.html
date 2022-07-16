@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href='{% static "homestyle.css" %}'>
+    <link rel="stylesheet" href='{% static "createpost.css" %}'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+  </head>
+  <body>
+
+      {% include 'navbar.html' %}
+      <center>
+
+        {% if searched %}
+        <h2 class='my-3'> Your search results for '{{searched }}'...</h2>
+
+        {% if posts.count > 0 %}
+
+        {% comment %} <span > Posts... </span> {% endcomment %}
+        <div class="parent d-flex flex-row my-5">
+
+          <div class="posts d-flex flex-column">
+            {% for post in posts %}
+            <div id="post_{{post.pk}}" class='card d-flex flex-row'>
+
+              <form method='POST' class='vote-div'>
+                {% csrf_token %}
+                <div class='vote-padding py-3'>
+                  {% if user.is_authenticated %}
+                  {% comment %} {% if like %} {% endcomment %}
+
+                  {% comment %} {% if user_obj %} {% endcomment %}
+                  {% if user_obj in post.likes.all %}
+                  <button class='up' id="up_{{post.pk}}" style='color: #ff4500' type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
+                  <span style='color: #ff4500'><b> {{ post.likes.count }} </b></span>
+                   <button class='down' id="dn_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-down'></i></button>
+                  {% else %}
+
+                  <button class='up' id="up_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
+                  <span><b> {{ post.likes.count }} </b></span>
+                  <button class='down' id="dn_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-down'></i></button>
+
+                  {% endif %}
+
+                  {% else %}
+                  <button class='up' id="up_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
+                  <span><b> {{ post.likes.count }} </b></span>
+                  <button class='down' id="dn_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-down'></i></button>
+                  {% comment %} {% endif %} {% endcomment %}
+                  {% endif %}
+                </div>
+              </form>
+
+              <div>
+                <div class='info-div py-3'>
+                  <p class='user-detail'>posted by <b> {{ post.uploader.username }} </b> on {{ post.date_created }}</p>
+                  <h3 class='my-3'> {{ post.title }} </h3>
+                  <p class='my-2 description'> {{ post.description }}</p>
+                  {% if post.url %}
+                  <a style='font-size: 22px;' class='link my-2' href="{{ post.url }}"> {{ post.url }}</a>
+                  {% endif %}
+                  {% if post.image %}
+                  <img class='my-2 image' style:'cursor:pointer;' src="{{ post.image.url }}" alt="">
+                  {% endif %}
+                </div>
+
+                <div class="actions d-flex flex-row">
+                  <a href=""><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
+                  <a href=""><button><i class="fa fa-share"></i></button> <span> share</span></a>
+                  {% comment %} <a href=""><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a> {% endcomment %}
+                  <div class='dropdownicon'>
+                    <button class="dropbtnicon">
+                      <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                    <div id="myDropdownicon" class="dropdown-contenticon">
+
+
+                      {% if user != None %}
+                      {% if user.is_authenticated %}
+
+
+                      <form>
+                        {% csrf_token %}
+                        {% comment %} <a href="">Hide</a> {% endcomment %}
+                      </form>
+
+                      <form action="{% url 'delete_post' post.pk %}" method='POST'>
+                        {% csrf_token %}
+                        <input style='display:none;' type="text" name="next_url" value="{{ request.path }}">
+                        <button class='delete-btn' type='submit'>Delete</button>
+                      </form>
+                      {% endif %}
+                      {% endif %}
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            {% endfor %}
+
+          </div>
+
+          <div>
+            {% if users|length > 0 %}
+            {% comment %} <p> Users... </p> {% endcomment %}
+            <div class='people d-flex flex-column'>
+              {% for user in users %}
+              <a class='p-3' href="{% url 'myprofile' user.username %}">{{user.username}}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% if posts.count > 5 %}
+            <div class='goto-top'>
+              <button onclick="topFunction()" id="myBtn" title="Go to top" class='btn-primary'> Back to top </button>
+              <script>
+                mybutton = document.getElementById("myBtn");
+
+                window.onscroll = function() {scrollFunction()};
+
+                function scrollFunction() {
+                  if (document.body.scrollTop > 25 || document.documentElement.scrollTop > 25) {
+                    mybutton.style.display = "block";
+                  } else {
+                    mybutton.style.display = "none";
+                  }
+                }
+
+                function topFunction() {
+                  document.body.scrollTop = 0; // For Safari
+                  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+                }
+
+              </script>
+            </div>
+            {% endif %}
+
+          </div>
+
+
+          <section class="user-name">
+
+          </section>
+
+
+        </div>
+
+
+      {% elif posts.count <= 0 %}
+
+      <div class='container'>
+        {% if users|length > 0 %}
+        {% comment %} <p> Users... </p> {% endcomment %}
+        <div class='people d-flex flex-column text-center justify-content-center'>
+          {% for user in users %}
+          <a class='p-3' href="{% url 'myprofile' user.username %}">{{user.username}}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if posts.count > 5 %}
+        <div class='goto-top'>
+          <button onclick="topFunction()" id="myBtn" title="Go to top" class='btn-primary'> Back to top </button>
+          <script>
+            mybutton = document.getElementById("myBtn");
+
+            window.onscroll = function() {scrollFunction()};
+
+            function scrollFunction() {
+              if (document.body.scrollTop > 25 || document.documentElement.scrollTop > 25) {
+                mybutton.style.display = "block";
+              } else {
+                mybutton.style.display = "none";
+              }
+            }
+
+            function topFunction() {
+              document.body.scrollTop = 0; // For Safari
+              document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
+
+          </script>
+        </div>
+        {% endif %}
+
+      </div>
+
+      {% endif %}
+
+       {% else %}
+          {% comment %} <h1>you forg</h1> {% endcomment %}
+        {% endif %}
+
+      </center>
+
+
+
+
+    <script src='{% static 'navbar.js' %}' async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+  </body>
+</html>
+

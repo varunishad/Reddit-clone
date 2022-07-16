@@ -1,0 +1,101 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+body{
+  background-color: rgba(0, 0, 0, 0.733) !important;
+  width: 100vw;
+}
+.main{
+  width: 88vw;
+  background-color: #bbbdbf;
+  margin: auto;
+}
+.head-bar{
+  background-color: black;
+  font-size: 19px;
+  height: 60px;
+}
+.head-bar a{
+  color: #fff;
+  text-decoration: none;
+  float: right;
+  margin-top: 18px;
+  margin-right: 25px;
+}
+
+.head-bar a:hover{
+  color: rgba(255, 255, 255, 0.76);
+
+}
+.post{
+  border: 1px solid rgba(0,0,0,.125);
+  width: 100%;
+  padding: 40px;
+}
+
+.card {
+  border: unset !important  ;
+}
+.card:hover{
+  border: unset !important  ;
+}
+
+.vote-div {
+  background-color: #fff;
+}
+
+.userdetails{
+  margin-bottom: 5px;
+}
+.userdetails span{
+color: red;
+}
+.comments{
+  background-color: #fff;
+  padding: 15px 34px;
+  padding-left: 71px;
+
+}
+.comment-field-div{
+  border: 1px solid #eaeaea;
+  background-color: rgba(184, 184, 184, 0.178);
+  align-items: end;
+
+}
+
+.comment-field{
+  height: 120px;
+  font-size: 18px;
+  color: #555555;
+  background-color: #fff;
+  border: 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.comment-field-div button{
+  margin: 5px 10px;
+  padding: 5px 25px;
+  font-weight: 600;
+    border-radius: 40px;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+
+.hr{
+  width: 100%;
+  border-bottom: 1px solid rgb(223, 223, 223);
+}
+
+.comment-card{
+  /* background-color: hotpink; */
+}
+
+.comment-card p.name{
+  color: rgb(141, 141, 141);
+  margin-bottom: 8px;
+}
+
+.comment-card .comment{
+  font-size: 20px;
+}

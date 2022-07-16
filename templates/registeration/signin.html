@@ -20,18 +20,20 @@
 
       <div class='head'>
         <h3>Login</h3>
-        <p>By continuing, you agree to our User Agreement and Privacy Policy.</p>
+        <p class='agreement'>By continuing, you agree to our User Agreement and Privacy Policy.</p>
       </div>
 
       <div class='social-media-btn'>
         <div>
-          <button>
+          <button class='google-btn'>
+            <img src="{% static '../static/gooogle_img.png' %}" alt="">
             <a href=""> Continue with Google</a>
           </button>
         </div>
 
         <div>
-          <button>
+          <button class='apple-btn'>
+            <img src="{% static '../static/apple_img.png' %}" alt="">
             <a href=""> Continue with Apple</a>
           </button>
         </div>
@@ -39,27 +41,34 @@
 
       <div class='or'></div>
 
-      <form action="signin" method='POST'>
+      <form action="" method='POST'>
         {% csrf_token %}
-        <input type="username" name="username" placeholder='Username'>
-        <input type="password" name="password" placeholder='Password'>
-        <button>
-         Log In
-        </button>
+        <div>
+          <input class='inp' type="username" name="username" placeholder='Username'>
 
-        <p>Forgot your <a href="">username</a>  or <a href="">password</a>?</p>
+        </div>
+        <div>
+          <input class='inp' type="password" name="password" placeholder='Password'>
+        </div>
+        <div>
+          <button class='login-btn' type='submit'> CONTINUE </button>
+        </div>
+
+        <p class='bottom-text'>Forgot your <a href="">username</a>  or <a href="">password</a>?</p>
+
+        <div>
+          {% for message in messages %}
+          <p class='message' style='color:red'> {{ message }} </p>
+          {% endfor %}
+
+        </div>
+
+        <div class='bottom-text'> New to Reddit?
+          <a href="/registeration/signup">SIGN UP</a>
+        </div>
       </form>
 
-      <div>
-        {% for message in messages %}
-        <h5 style='color:red'> {{ message }} </h5>
-        {% endfor %}
 
-      </div>
-
-      <div> New to Reddit?
-        <a href="/signup">SIGN UP</a>
-      </div>
 
     </div>
   </div>

@@ -62,12 +62,6 @@ swapBtns.forEach(function(elm, index){
       if(elm.classList.contains('active')){
         hideShow(index)
       }
-      // hideOrShow.forEach(function(e, i){
-      //   if(i==index){
-      //     e.classList.add('show')
-      //   }
-      // })
-      // console.log(i)
   })
 })
 

@@ -1,22 +1,24 @@
 {% comment %} <h1> Navbar </h1> {% endcomment %}
-
+{%load static %}
 <header>
 
 <div class='nav-container'>
 
   <div class='icon-search'>
-    <a href='/' class="reddit-icon"> <i class="fa fa-reddit" style="font-size:48px;color:red"></i>
+    {% comment %} <a href='/' class="reddit-icon"> <i class="fa fa-reddit" style="font-size:48px;color:red"></i> {% endcomment %}
+    <a href='/' class="reddit-icon"> <img src="{% static '../static/reddit_icon.png'%}" alt=""></i>
     </a>
 
     <div class='search-box'>
-      <form action="">
+      <form action="{% url 'searches' %}" method="POST">
+        {% csrf_token %}
       <label for="" class="search-label">
         <div class="search-icon">
           <i class="fa fa-search"></i>
 
         </div>
-      </label>
-      <input type="text" class='search' placeholder='Search Reddit'>
+        </label>
+        <input type="text" class='search' name='searched' placeholder='Search Reddit'>
     </form>
     </div>
 
@@ -25,12 +27,13 @@
   <div class='header-buttons'>
 
     <div class='nav-btn'>
+
       {% if user.is_authenticated %}
-      <button class='createpost-btn'><a class='create-btn' href="/create">+</a></button>
-      <a href="/logout" class='logout'> Logout </a>
+      <button class='createpost-btn'><a class='create-btn' href="/blog/create">+</a></button>
+      <a href="/registeration/logout/" class='logout'> Logout </a>
       {% else %}
-      <a href='/signin' class='login'> Log In </a>
-      <a href='/signup' class='signup'> Sign Up </a>
+      <a href='/registeration/signin/' class='login'> Log In </a>
+      <a href='/registeration/signup/' class='signup'> Sign Up </a>
       {% endif %}
     </div>
 
@@ -53,16 +56,15 @@
           {% comment %} <a href="#">Premium</a> {% endcomment %}
           {% comment %} <a href="#">Powerups</a> {% endcomment %}
           {% comment %} <a href="#">Talk</a> {% endcomment %}
-          <a href="/myprofile">Profile</a>
-          <a href="setting">Settings</a>
-          {% comment %} <a href="help">Help Center</a> {% endcomment %}
-          {% comment %} <a href="#">More</a> {% endcomment %}
-          {% comment %} <a href="terms">Terms & Policies</a> {% endcomment %}
-          {% comment %} <a href="#">User agreemement</a> {% endcomment %}
-          <a href="privacy">Privacy Policy</a>
-          {% comment %} <a href="#">Contect Policy</a> {% endcomment %}
-          {% comment %} <a href="#">Moderator Guidelines</a> {% endcomment %}
-          {% comment %} <a href="#">Sign Up or Log In</a> {% endcomment %}
+
+          {% if request.session.user %}
+          <a href="{% url 'myprofile' request.session.user %}">Profile</a>
+          {% comment %} <a href="">Saved Posts</a> {% endcomment %}
+          <a href="">Privacy Policy</a>
+          {% endif %}
+
+          <a href="">Settings</a>
+          <a href="">Help</a>
         </div>
     </div>
 

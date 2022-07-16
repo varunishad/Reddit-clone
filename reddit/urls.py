@@ -22,11 +22,18 @@ from blog import views
 
 urlpatterns = [
     # path('registeration/', include('registeration.urls')),
-    path('', include('homepage.urls')),
-    path('',views.home, name='home'),
+    # path('', include('homepage.urls')),
+    # path('',views.home, name='home'),
+    # path('', views.home, name='home'),
+    path("",views.home),
+    path('registeration/',include('registeration.urls')),
+    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

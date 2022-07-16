@@ -3,13 +3,26 @@
 body{
   background-color: #dae0e6 !important;
 }
+
+form{
+  /* background-color: #fff; */
+}
+.headin h3{
+    font-size: 26px !important;
+}
+/* h5{
+
+} */
 .hr{
+  /* background-color: #dae0e6; */
   border-bottom: 1px solid #fff;
   width: 100%;
 }
 
 .box{
   background-color: #fff;
+  border-radius: 7px;
+
 }
 .swappers{
   /* width: 100%; */
@@ -34,17 +47,20 @@ body{
 input.title{
   font-size: 20px;
   border: 1px solid #dae0e6;
-
+  border-radius: 5px;
 }
 
 .post-field textarea{
-  /* width: 100%; */
+  border-radius: 5px;
   height: 200px;
   border: 1px solid #dae0e6;
   font-size: 20px;
   color: rgb(139, 139, 139);
   padding: 0;
 
+}
+.image-video-field, text-area{
+  border-radius: 5px ;
 }
 .link-area {
   height: 100px;

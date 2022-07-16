@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage',
     'registeration',
     'blog',
 ]
@@ -87,13 +86,23 @@ WSGI_APPLICATION = 'reddit.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("NAME"),
-        'USER': env("USER_NAME"),
-        'PASSWORD': env("PASSWORD"),
-        'HOST': env("HOST"),
-        'PORT':env("PORT"),
+        'NAME': 'reddit',
+        'USER': 'varun',
+        'PASSWORD': 123456789,
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env("NAME"),
+#         'USER': env("USER_NAME"),
+#         'PASSWORD': env("PASSWORD"),
+#         'HOST': env("HOST"),
+#         'PORT':env("PORT"),
+#     }
+# }
 
 
 # Password validation

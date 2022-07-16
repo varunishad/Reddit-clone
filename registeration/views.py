@@ -10,13 +10,25 @@ def signup(request):
       email = request.POST['email']
       password = request.POST['password']
 
-      if User.objects.filter(username=username).exists():
+      if len(username.rstrip()) < 1:
+        messages.info(request,'Invalid Username')
+        return redirect('/registeration/signup')
+
+      elif User.objects.filter(username=username).exists():
         messages.info(request,'Username Taken')
-        return redirect('signup')
+        return redirect('/registeration/signup')
+
+      elif len(email.rstrip()) < 1:
+        messages.info(request, 'invalid email')
+        return redirect('/registeration/signup')
+
+      elif len(password.rstrip()) < 1:
+        messages.info(request, 'Invalid Password')
+        return redirect('/registeration/signup')
 
       elif User.objects.filter(email=email).exists():
         messages.info(request, 'Email taken')
-        return redirect('signup')
+        return redirect('/registeration/signup')
 
       else:
         user = User.objects.create_user(username=username, password = password, email=email)
@@ -35,17 +47,23 @@ def signin(request):
 
         user = auth.authenticate(username=username, password=password)
 
-        if user is not None:
-           auth.login(request, user)
-           request.session["user"]=username
-           return redirect('/')
+        if len(username.rstrip()) < 1:
+          messages.info(request,'Invalid Username')
+          return redirect('/registeration/signin')
+
+        elif len(password.rstrip()) < 1:
+          messages.info(request, 'Invalid Password')
+          return redirect('/registeration/signin')
+
         else:
-            messages.info(request, 'invalid credentials')
-            return redirect('signin')
+            auth.login(request, user)
+            request.session["user"]=username
+            return redirect('/blog/home')
 
     return render(request, 'registeration/signin.html')
 
 def logout(request):
+    if request.session.has_key('user'):
+      del request.session['user']
     auth.logout(request)
     return redirect('/')
-    # return render(request, 'registera tion/signout.html')

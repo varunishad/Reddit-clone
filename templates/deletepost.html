@@ -1,0 +1,7 @@
+<form action="" method='POST'>
+  {% csrf_token %}
+  {% comment %} <a href="/deletepost">Delete</a> {% endcomment %}
+  {% comment %} <button type='submit' name='post_id' value={{ post.pk }}u><i class='fa fa-arrow-up'></i></button> {% endcomment %}
+  <button type='submit' name='del_post_id' value={{ post.pk }}>Delete</button>
+
+</form>

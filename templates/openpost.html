@@ -8,68 +8,30 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href='{% static "homestyle.css" %}'>
-    <link rel="stylesheet" href='{% static "createpost.css" %}'>
+    <link rel="stylesheet" href='{% static "comments.css" %}'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
   </head>
-  <body>
-      {% include 'navbar.html' %}
+<body>
+  {% include 'navbar.html' %}
+  {% comment %} {{ post.title }} {% endcomment %}
 
-      {% if user != None %}
-      {% if user.is_authenticated %}
-
-      <div class='pannel'>
-
-        <div class="user-profile">
-          {% if request.session.user %}
-          <a href="{% url 'myprofile' request.session.user %}">
-          {% else %}
-          <a href="registeration/signin">
-          {% endif %}
-            <i class="fa fa-reddit"></i>
-          </a>
-        </div>
-
-        <div class="post">
-          <a href="/blog/create">
-            <input type="text" placeholder='Create a post'> </a>
-        </div>
-
-        <div class="icon media">
-          <a href="/blog/create">
-            <i class="fa fa-photo"></i></a>
-        </div>
-
-        <div class="icon link">
-          <a href="/blog/create">
-            <i class="fa fa-link"></i>
-          </a>
-        </div>
-      </div>
-
-      {% endif %}
-      {% endif %}
-
-      <br>
-      <br>
-
-      <div class="posts container my-5">
-        {% comment %} {% for index, post in enumerate{posts %} {% endcomment %}
-        {% if posts.count > 0 %}
-        {% for post in posts %}
-        <div id="post_{{post.pk}}" class='card my-4 d-flex flex-row'>
+  <div class='main'>
+    <div class='head-bar'>
+      <a href='/'> X Close</a>
+    </div>
+    <div class='container-box'>
+      <div class='post'>
+        {% comment %} post {% endcomment %}
+        <div id="post_{{post.pk}}" class='card d-flex flex-row'>
 
           <form method='POST' class='vote-div'>
             {% csrf_token %}
             <div class='vote-padding py-3'>
               {% if user.is_authenticated %}
-              {% comment %} {% if like %} {% endcomment %}
 
-              {% comment %} {% if user_obj %} {% endcomment %}
               {% if user_obj in post.likes.all %}
               <button class='up' id="up_{{post.pk}}" style='color: #ff4500' type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
               <span style='color: #ff4500'><b> {{ post.likes.count }} </b></span>
@@ -87,6 +49,8 @@
               <span><b> {{ post.likes.count }} </b></span>
               <button class='down' id="dn_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-down'></i></button>
               {% endif %}
+
+
             </div>
           </form>
 
@@ -103,11 +67,7 @@
               {% endif %}
             </div>
 
-            {% if request.session.user %}
-
             <div class="actions d-flex flex-row">
-
-
               <a href="{% url 'post_comment' post.pk %}"><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
               <a href=""><button><i class="fa fa-share"></i></button> <span> share</span></a>
               {% comment %} <a href=""><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a> {% endcomment %}
@@ -139,80 +99,52 @@
               </div>
             </div>
 
-            {% else %}
-
-            <div class="actions d-flex flex-row">
-
-
-              <a href="registeration/signin"><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
-              {% comment %} <a href="registeration/signin"><button><i class="fa fa-share"></i></button> <span> share</span></a> {% endcomment %}
-              <a href="registeration/signin"><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a>
-              <div class='dropdownicon'>
-                <button class="dropbtnicon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </button>
-                <div id="myDropdownicon" class="dropdown-contenticon">
-
-
-                  {% if user != None %}
-                  {% if user.is_authenticated %}
-
-
-                  <form>
-                    {% csrf_token %}
-                    {% comment %} <a href="">Hide</a> {% endcomment %}
-                  </form>
-
-                  <form action="{% url 'delete_post' post.pk %}" method='POST'>
-                    {% csrf_token %}
-                    <input style='display:none;' type="text" name="next_url" value="{{ request.path }}">
-                    <button class='delete-btn' type='submit'>Delete</button>
-                  </form>
-                  {% endif %}
-                  {% endif %}
-
-                </div>
-              </div>
-            </div>
-
-            {% endif %}
-
-
           </div>
 
         </div>
-        {% endfor %}
-        {% endif %}
+        <div class='comments'>
+          <p class='userdetails'>Comment as <span> {{username}} </span></p>
+          <form action="" method='POST' class='comment-field-div d-flex flex-column'>
+            {% csrf_token %}
+            {{ form.comments }}
+            <div class='comment-btn'>
+              <button class='btn btn-secondary' type='submit'> comment </button>
+            </div>
+          </form>
+          <div class="hr my-5"> </div>
+          {% for comment in comments %}
+          <div class='comment-card my-4'>
+            <p class='name'> <b> {{comment.user }} </b> {{comment.created_on}}</p>
+            <p class='comment'>{{comment.comments }} </p>
+          </div>
+          {% endfor %}
+
+        </div>
       </div>
-      <div class='gototop-home'>
-        <button class='btn-home btn-primary' onclick="topFunction()" id="myBtn" title="Go to top" class='btn-primary'> Back to top </button>
-        <script>
-          mybutton = document.getElementById("myBtn");
+      <div>
 
-          window.onscroll = function() {scrollFunction()};
-
-          function scrollFunction() {
-            if (document.body.scrollTop > 25 || document.documentElement.scrollTop > 25) {
-              mybutton.style.display = "block";
-            } else {
-              mybutton.style.display = "none";
-            }
-          }
-
-          function topFunction() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-          }
-
-        </script>
       </div>
+    </div>
+  </div>
 
-    <script src='{% static 'navbar.js' %}' async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
-  </body>
+{% comment %}
+<form action="" method='POST'>
+  {% csrf_token %}
+  {{form.as_p}}
+<button type='submit'> comment </button>
+</form>
+
+{% for comment in comments %}
+<li> {{comment.comments }}</li>
+<li> {{comment.user }}</li>
+{% endfor %} {% endcomment %}
+
+<script src='{% static 'navbar.js' %}' async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+</body>
 </html>
-
 
