@@ -126,18 +126,6 @@
       </div>
     </div>
   </div>
-
-
-{% comment %}
-<form action="" method='POST'>
-  {% csrf_token %}
-  {{form.as_p}}
-<button type='submit'> comment </button>
-</form>
-
-{% for comment in comments %}
-<li> {{comment.comments }}</li>
-<li> {{comment.user }}</li>
 {% endfor %} {% endcomment %}
 
 <script src='{% static 'navbar.js' %}' async defer></script>

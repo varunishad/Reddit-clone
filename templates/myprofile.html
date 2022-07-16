@@ -18,8 +18,6 @@
   </head>
   <body>
       {% include 'navbar.html' %}
-
-      {% comment %} <h2 style:'width fit'>{{username}}'s feed </h2> {% endcomment %}
       {% if posts|length == 0 %}
       <div class='container py-4 px-4 text-center' style='position: relative;top:55px; background-color:#fff;'>
         <h3> {{username}} hasn't posted anything yet.</h3>
@@ -30,7 +28,6 @@
       <div class="parent d-flex">
 
         <div class="posts d-flex flex-column">
-          {% comment %} {% for index, post in enumerate{posts %} {% endcomment %}
           {% if posts.count > 0 %}
           {% for post in posts %}
           <div id="post_{{post.pk}}" class='card d-flex flex-row'>
@@ -39,9 +36,6 @@
               {% csrf_token %}
               <div class='vote-padding py-3'>
                 {% if user.is_authenticated %}
-                {% comment %} {% if like %} {% endcomment %}
-
-                {% comment %} {% if user_obj %} {% endcomment %}
                 {% if user_obj in post.likes.all %}
                 <button class='up' id="up_{{post.pk}}" style='color: #ff4500' type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
                 <span style='color: #ff4500'><b> {{ post.likes.count }} </b></span>
@@ -58,7 +52,6 @@
                 <button class='up' id="up_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-up'></i></button>
                 <span><b> {{ post.likes.count }} </b></span>
                 <button class='down' id="dn_{{post.pk}}" type='submit' name='post_id' value={{ post.pk }}><i class='fa fa-arrow-down'></i></button>
-                {% comment %} {% endif %} {% endcomment %}
                 {% endif %}
               </div>
             </form>
@@ -76,13 +69,9 @@
                 {% endif %}
               </div>
 
-
             <div class="actions d-flex flex-row">
-
-
               <a href="{% url 'post_comment' post.pk %}"><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
               <a href=""><button><i class="fa fa-share"></i></button> <span> share</span></a>
-              {% comment %} <a href=""><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a> {% endcomment %}
               <div class='dropdownicon'>
                 <button class="dropbtnicon">
                   <i class="fa fa-ellipsis-h"></i>
@@ -96,7 +85,6 @@
 
                   <form>
                     {% csrf_token %}
-                    {% comment %} <a href="">Hide</a> {% endcomment %}
                   </form>
 
                   <form action="{% url 'delete_post' post.pk %}" method='POST'>
@@ -110,42 +98,6 @@
                 </div>
               </div>
             </div>
-
-
-
-
-              {% comment %} <div class="actions d-flex flex-row">
-                <a href=""><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
-                <a href=""><button><i class="fa fa-share"></i></button> <span> share</span></a>
-                <a href=""><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a>
-                <div class='dropdownicon'>
-                  <button class="dropbtnicon">
-                    <i class="fa fa-ellipsis-h"></i>
-                  </button>
-                  <div id="myDropdownicon" class="dropdown-contenticon">
-
-
-                    {% if user != None %}
-                    {% if user.is_authenticated %}
-
-
-                    <form>
-                      {% csrf_token %}
-                      <a href="">Hide</a>
-                    </form>
-
-                    <form action="{% url 'delete_post' post.pk %}" method='POST'>
-                      {% csrf_token %}
-                      <input style='display:none;' type="text" name="next_url" value="{{ request.path }}">
-                      <button class='delete-btn' type='submit'>Delete</button>
-                    </form>
-                    {% endif %}
-                    {% endif %}
-
-                  </div>
-                </div>
-              </div> {% endcomment %}
-
             </div>
 
           </div>

@@ -77,7 +77,6 @@
                 <div class="actions d-flex flex-row">
                   <a href=""><button><i class='fa fa-comment'></i></button> <span> comments</span></a>
                   <a href=""><button><i class="fa fa-share"></i></button> <span> share</span></a>
-                  {% comment %} <a href=""><button><i class="fa fa-bookmark-o"></i></button> <span> save </span></a> {% endcomment %}
                   <div class='dropdownicon'>
                     <button class="dropbtnicon">
                       <i class="fa fa-ellipsis-h"></i>
@@ -91,7 +90,6 @@
 
                       <form>
                         {% csrf_token %}
-                        {% comment %} <a href="">Hide</a> {% endcomment %}
                       </form>
 
                       <form action="{% url 'delete_post' post.pk %}" method='POST'>

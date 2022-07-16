@@ -45,12 +45,10 @@
       <div class="field container my-4 px-4">
 
         <div class='title-div'>
-          {% comment %} <input class='title w-100 py-2 px-3' type="text" name="title" placeholder="Title" required> {% endcomment %}
         {{ form.title }}
         </div>
 
         <div class='post-field todisplay show my-2'>
-          {% comment %} <textarea name="description" id="desc" class='description w-100 px-3 py-2' placeholder='Description (Optional)'></textarea> {% endcomment %}
           {{ form.description }}
         </div>
 
@@ -61,7 +59,6 @@
               <header class='headr'>Drag & Drop to Upload File</header>
               <span>or</span>
               <p>
-                {% comment %} <input type="file" accept="image/*" name="image" id="fileupload"> {% endcomment %}
               {{ form.image }}
               </p>
             </div>
@@ -69,7 +66,6 @@
         </div>
 
         <div class='link-field todisplay my-2'>
-          {% comment %} <textarea name="link" id="desc" class='link-area w-100 px-3 py-2' placeholder='Link'></textarea> {% endcomment %}
           {{ form.url }}
         </div>
 
@@ -78,8 +74,6 @@
         <button type="submit" class='submit-btn'>POST</button>
       </div>
     </div>
-
-    {% comment %} <input type="submit" value="post"> {% endcomment %}
   </form>
 
 
@@ -94,10 +88,3 @@
   </body>
 </html>
 
-
-{% comment %} {% extends 'navbar.html' %} {% endcomment %}
-
-{% comment %} {% block content%} {% endcomment %}
-
-
-{% comment %} {% endblock %} {% endcomment %}
